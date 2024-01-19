@@ -3,11 +3,11 @@ import requests
 import os
 from requests.auth import HTTPBasicAuth
 
-app = Flask(__name__, static_url_path="/static")
+app = Flask(__name__, static_url_path="")
 
 @app.route('/')
 def index():
-    f = open("main.html", "r")
+    f = open("tracksByYears.html", "r")
     page = f.read()
     f.close()
     return page
@@ -16,7 +16,7 @@ def index():
 def showSongs():
     form = request.form
     year = form["year"]
-    f = open("main.html", "r")
+    f = open("tracksByYears.html", "r")
     page = f.read()
     f.close()
     clientID = os.environ['CLIENT_ID']
@@ -37,7 +37,7 @@ def showSongs():
     response = requests.get(fullURL, headers=headers)
     data = response.json()
 
-    # Replace placeholders in HTML with track information
+    
     tracks_html = ""
     for track in data['tracks']['items']:
         track_name = track['name']
